@@ -8,7 +8,7 @@ cp .env.example .env
 3. Pull Required Docker Images
 Before running docker-compose, you may need to pull some Docker images. For example, to pull the ubuntu:20.04 image, run:
 
-docker pull ubuntu:20.04
+docker pull ubuntu:20.04 and docker pull composer:2.5.5
 
 4. Ensure Port 8000 Is Available
 Before running the project, ensure that nothing is already using port 8000. If another service is using this port, stop or reconfigure it to avoid conflicts.
