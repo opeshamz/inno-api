@@ -5,7 +5,8 @@ Make sure Docker is installed and running on your system before proceeding.
 2. Pull Required Docker Images
 Before running docker-compose, you may need to pull some Docker images. For example, to pull the ubuntu:20.04 image, run:
 
-docker pull ubuntu:20.04 and docker pull composer:2.5.5
+docker pull ubuntu:20.04, docker pull composer:2.5.5 and docker pull mysql:8.0
+
 
 3. Ensure Port 8000 Is Available
 Before running the project, ensure that nothing is already using port 8000. If another service is using this port, stop or reconfigure it to avoid conflicts.
