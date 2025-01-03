@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+    # Laravel application container
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: laravel-app
+        image: laravel-app:latest
+        working_dir: /var/www
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/var/www
+        networks:
+            - laravel-network
+        depends_on:
+            - db
+        env_file:
+            - .env
+        environment:
+            - DB_HOST=${DB_HOST:-db}
+            - DB_PORT=${DB_PORT:-3306}
+            - DB_DATABASE=${DB_DATABASE:-laravel}
+            - DB_USERNAME=${DB_USERNAME:-root}
+            - DB_PASSWORD=${DB_PASSWORD:-root}
+            - NEWSAPI_KEY=${NEWSAPI_KEY}
+            - NEWSAPI_BASE_URL=${NEWSAPI_BASE_URL}
+            - NEWSAIAPI_KEY=${NEWSAIAPI_KEY}
+            - NEWSAIAPI_BASE_URL=${NEWSAIAPI_BASE_URL}
+            - NEWYORKTIMES_API_KEY=${NEWYORKTIMES_API_KEY}
+            - NEWYORKTIMES_BASE_URL=${NEWYORKTIMES_BASE_URL}
+            - JWT_SECRET=${JWT_SECRET}
+
+
+    # MySQL database container
+    db:
+        image: mysql:8.0
+        container_name: mysql-db
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+        volumes:
+            - mysql-data:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - laravel-network
+
+networks:
+    laravel-network:
+        driver: bridge
+
+volumes:
+    mysql-data:
+        driver: local
